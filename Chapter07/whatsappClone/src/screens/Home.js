@@ -14,7 +14,7 @@ export default class Home extends React.Component {
             <View style={styles.container}>
                 <View style={styles.container}>
                     <Button onPress={() => this.props.navigation.navigate('chat', { name: 'John' })}
-                        title="Navigate to ChatScreen" /> 
+                        title="Navigate to ChatScreen(6)" /> 
                 </View> 
             </View>
         )
