@@ -1,5 +1,5 @@
 import React from 'react';
-import { getMessages, postMessage } from '../services/api';
+import { postMessageToServer } from '../actions';
 import { View, ImageBackground, KeyboardAvoidingView, Platform, Text, StyleSheet, Button, FlatList } from 'react-native';
 import Message from '../components/Message';
 import Compose from '../components/Compose';
@@ -14,20 +14,15 @@ class ChatScreen extends React.Component {
 
     keyboardVerticalOffset = Platform.OS === 'ios' ? 60 : 0
 
-    
     // componentDidMount() {
-    //     this.unsubscribeGetMessages = getMessages((snapshot) => {
-    //         this.setState({
-    //             messages: Object.values(snapshot.val())
-    //         })
-    //     })
+    //     this.props.subscribeToGetMessagesFromServer();
     // }
+
     // componentWillUnmount() {
     //     this.unsubscribeGetMessages();
     // }
 
     render() {
-        console.log(this.props)
         return (
             <ImageBackground
                 style={styles.container}
@@ -41,7 +36,7 @@ class ChatScreen extends React.Component {
                         renderItem={Message}
                         keyExtractor={(item, index) => (`message-${index}`)}
                     />
-                    <Compose submit={this.props.addMessage} />
+                    <Compose submit={ this.props.postMessageToServer } />
                 </KeyboardAvoidingView>
             </ImageBackground>
         )
@@ -49,21 +44,12 @@ class ChatScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state);
     return {
         klepages: state.messages
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        addMessage: (message) => {
-            dispatch(addMessage(message));
-        }
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChatScreen);
+export default connect(mapStateToProps, { postMessageToServer })(ChatScreen);
 
 const styles = StyleSheet.create({
     container: {

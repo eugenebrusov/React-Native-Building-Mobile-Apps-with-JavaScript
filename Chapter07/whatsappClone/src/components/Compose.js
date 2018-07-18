@@ -16,7 +16,7 @@ class Compose extends React.Component {
     this.props.submit(this.state.text);
     this.setState({
       text: ''
-    })
+    });
     Keyboard.dismiss();
   }
 
