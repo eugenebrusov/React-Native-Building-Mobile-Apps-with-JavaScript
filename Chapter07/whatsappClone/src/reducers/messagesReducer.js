@@ -11,16 +11,14 @@ const initialState = {
 }
 
 export default function messagesReducer(state = initialState, action) {
-    console.log("++messagesReducer");
-    console.log(action);
-    console.log("--messagesReducer");
     switch (action.type) {
         case actionTypes.ADD_MESSAGE:
             return {
                 messages: [
                     ...state.messages,
                     action.payload
-                ]
+                ],
+                xrenages: '98765'
             };
         default:
             return state;
