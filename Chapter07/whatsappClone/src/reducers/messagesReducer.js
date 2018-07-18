@@ -1,13 +1,7 @@
 import { actionTypes } from '../actions';
 
 const initialState = {
-    messages: [
-        {
-            incoming: true,
-            message: 'Hi Vladimir'
-        }
-    ],
-    xrenages: '123456'
+    messages: []
 }
 
 export default function messagesReducer(state = initialState, action) {
@@ -17,9 +11,14 @@ export default function messagesReducer(state = initialState, action) {
                 messages: [
                     ...state.messages,
                     action.payload
-                ],
-                xrenages: '98765'
+                ]
             };
+        case actionTypes.UPDATE_MESSAGES:
+            return action.payload;
+        case actionTypes.UNSUBSCRIBE_TO_GET_MESSAGES:
+            return {
+                messages: state.messages
+            }
         default:
             return state;
     }

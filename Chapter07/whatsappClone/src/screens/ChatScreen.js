@@ -1,6 +1,6 @@
 import React from 'react';
-import { postMessageToServer } from '../actions';
-import { View, ImageBackground, KeyboardAvoidingView, Platform, Text, StyleSheet, Button, FlatList } from 'react-native';
+import { postMessageToServer, subscribeToGetMessagesFromServer, unsubscribeToGetMessagesFromServer } from '../actions';
+import { ImageBackground, KeyboardAvoidingView, Platform, StyleSheet, FlatList } from 'react-native';
 import Message from '../components/Message';
 import Compose from '../components/Compose';
 import { connect } from 'react-redux';
@@ -14,13 +14,13 @@ class ChatScreen extends React.Component {
 
     keyboardVerticalOffset = Platform.OS === 'ios' ? 60 : 0
 
-    // componentDidMount() {
-    //     this.props.subscribeToGetMessagesFromServer();
-    // }
+    componentDidMount() {
+        this.props.subscribeToGetMessagesFromServer();
+    }
 
-    // componentWillUnmount() {
-    //     this.unsubscribeGetMessages();
-    // }
+    componentWillUnmount() {
+        this.props.unsubscribeToGetMessagesFromServer();
+    }
 
     render() {
         return (
@@ -49,7 +49,7 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { postMessageToServer })(ChatScreen);
+export default connect(mapStateToProps, { postMessageToServer, subscribeToGetMessagesFromServer, unsubscribeToGetMessagesFromServer })(ChatScreen);
 
 const styles = StyleSheet.create({
     container: {
